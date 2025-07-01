@@ -2,14 +2,35 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
     <script>
-      function onSubmit(token) {
-        RecaptchaFlutter.postMessage(token);
+      var widgetId;
+
+      var onloadCallback = function () {
+        widgetId = grecaptcha.render('captcha', {
+          'sitekey': '6LdXuHMrAAAAAGUdbt-0LP2jFu_4dJSlFmtvuagK',
+          'callback': onSuccess,
+          'size': 'normal'
+        });
+      };
+
+      function onSuccess(token) {
+        RecaptchaFlutter.postMessage('verified:' + token); // Notify success
+      }
+
+      function expand() {
+        RecaptchaFlutter.postMessage('expand'); // Notify Flutter to expand height
+      }
+
+      function collapse() {
+        RecaptchaFlutter.postMessage('collapse'); // Notify Flutter to collapse
       }
     </script>
+    <style>
+      body { margin: 0; padding: 0; }
+    </style>
   </head>
   <body>
-    <div class="g-recaptcha" data-sitekey="6LdXuHMrAAAAAGUdbt-0LP2jFu_4dJSlFmtvuagK" data-callback="onSubmit"></div>
+    <div id="captcha" onclick="expand()"></div>
   </body>
 </html>
