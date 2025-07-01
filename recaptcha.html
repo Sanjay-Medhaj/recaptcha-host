@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+      function onSubmit(token) {
+        RecaptchaFlutter.postMessage(token);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="g-recaptcha" data-sitekey="6LdXuHMrAAAAAGUdbt-0LP2jFu_4dJSlFmtvuagK" data-callback="onSubmit"></div>
+  </body>
+</html>
